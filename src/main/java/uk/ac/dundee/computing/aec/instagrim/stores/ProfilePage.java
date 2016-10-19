@@ -5,6 +5,9 @@
  */
 package uk.ac.dundee.computing.aec.instagrim.stores;
 
+import java.util.Set;
+import java.util.UUID;
+
 /**
  *
  * @author Aleksandr
@@ -13,7 +16,7 @@ public class ProfilePage {
     String username = null;
     String firstname = null;
     String lastname = null;
-
+    Set<String> email = null;
 
 public void ProfilePage()
 {
@@ -50,5 +53,16 @@ public String getLastname()
 {
     return lastname;
 }
+
+public void setEmail(Set<String> email)
+{
+    this.email = email;
+}
+
+public Set<String> getEmail()
+{
+    return email;
+}
+
 
 }

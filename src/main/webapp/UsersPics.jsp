@@ -15,18 +15,48 @@
         <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
     </head>
     <body>
-        <header>
         
+        <header>
+            
+            <ul>
+
+                <li class="footer"><a href="/Instagrim">Home</a></li>
+                
+                <% 
+                LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+            %>
+                    <%
+                        
+                        
+                        if (lg != null) {
+                            String UserName = lg.getUsername();
+                            if (lg.getlogedin()) {
+                    %>
+                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
+                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li> 
+                <li><a href="/Instagrim/upload.jsp">Upload</a></li>
+                <%}
+                            }else{
+                                %>
+                 <li><a href="register.jsp">Register</a></li>
+                <li><a href="login.jsp">Login</a></li>
+                <%
+                                        
+                            
+                    }%>
+                
+               <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+            </ul>
+            
+         
+              
+            
+        </header>
+        <div class="demo">
         <h1>InstaGrim ! </h1>
         <h2>Your world in Black and White</h2>
-        </header>
         
-        <nav>
-            <ul>
-                <li class="nav"><a href="/Instagrim/upload.jsp">Upload</a></li>
-                <li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li>
-            </ul>
-        </nav>
+       
  
         <article>
             <h1>Your Pics</h1>
@@ -49,10 +79,18 @@
             }
         %>
         </article>
+
+        </div>
         <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-            </ul>
+            &COPY; Andy C
+                <%if (lg != null) {
+                    String UserName = lg.getUsername();
+                    if (lg.getlogedin()) {
+                %>
+                <form class = "logout" method="POST"  action="Logout">
+                <input type="submit" value="Logout"> 
+            </form> 
+                <%} } %>
         </footer>
     </body>
 </html>

@@ -40,6 +40,7 @@ public class Profile extends HttpServlet {
         
     }
     
+    
     public void init(ServletConfig config) throws ServletException {
     // TODO Auto-generated method stub
     cluster = CassandraHosts.getCluster();

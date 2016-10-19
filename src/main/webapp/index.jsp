@@ -12,7 +12,6 @@
     <head>
         <style>
             form {text-align:right;}
-            input {text-align:right;}
         </style>
         <title>Instagrim</title>
         <link rel="stylesheet" type="text/css" href="Styles.css" />
@@ -22,27 +21,10 @@
         <header>
             <% 
                 LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                            if (lg != null) {
-                            if (lg.getlogedin()) {
             %>
-            
-            <form method="POST"  action="Logout">
-                <input type="submit" value="Logout"> 
-            </form>  
-            
-            <%
-                }
-                }
-            %>
-               
-            <h1>InstaGrim ! </h1>
-            <h2>Your world in Black and White</h2>
-        </header>
-        <nav>
             <ul>
 
-               
-                <li><a href="upload.jsp">Upload</a></li>
+                <li class="footer"><a href="/Instagrim">Home</a></li>
                     <%
                         
                         
@@ -50,25 +32,41 @@
                             String UserName = lg.getUsername();
                             if (lg.getlogedin()) {
                     %>
-                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Your Profile</a></li>
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li> 
+                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
+                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li> 
+                <li><a href="upload.jsp">Upload</a></li>
                 <%}
                             }else{
                                 %>
-                 <li><a href="register.jsp">Register</a></li>
-                <li><a href="login.jsp">Login</a></li>
+                 <li><a href="/Instagrim/Register/">Register</a></li>
+                 <li><a href="/Instagrim/Login/">Login</a></li>
+                
                 <%
                                         
                             
                     }%>
+                
+               <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
             </ul>
-        </nav>
+            
+         
+              
+            
+        </header>
         
+             <h1>InstaGrim ! </h1>
+            <h2>Your world in Black and White</h2>
         <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-                <li>&COPY; Andy C</li>
-            </ul>
+
+                &COPY; Andy C
+                <%if (lg != null) {
+                    String UserName = lg.getUsername();
+                    if (lg.getlogedin()) {
+                %>
+                <form class = "logout" method="POST"  action="Logout">
+                <input type="submit" value="Logout"> 
+            </form> 
+                <%} } %>
         </footer>
     </body>
 </html>

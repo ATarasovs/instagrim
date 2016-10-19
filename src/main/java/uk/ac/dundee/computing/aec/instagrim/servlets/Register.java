@@ -12,18 +12,22 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
+import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
+import uk.ac.dundee.computing.aec.instagrim.stores.ProfilePage;
 
 /**
  *
  * @author Administrator
  */
-@WebServlet(name = "Register", urlPatterns = {"/Register"})
+@WebServlet(name = "Register", urlPatterns = {"/Register","/Register/*"})
+
 public class Register extends HttpServlet {
     Cluster cluster=null;
     public void init(ServletConfig config) throws ServletException {
@@ -31,9 +35,13 @@ public class Register extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
 
-
-
-
+@Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    {
+        RequestDispatcher rd=request.getRequestDispatcher("register.jsp");
+	rd.forward(request,response);
+    }
+    
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -42,6 +50,8 @@ public class Register extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -49,10 +59,11 @@ public class Register extends HttpServlet {
         String last_name=request.getParameter("last_name");
         String username=request.getParameter("username");
         String password=request.getParameter("password");
+        String emailAddress=request.getParameter("emailAddress");
         
         User us=new User();
         us.setCluster(cluster);
-        us.RegisterUser(first_name, last_name, username, password);
+        us.RegisterUser(first_name, last_name, username, password, emailAddress);
         
 	response.sendRedirect("/Instagrim");
         

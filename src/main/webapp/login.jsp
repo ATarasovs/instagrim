@@ -14,33 +14,33 @@
 
     </head>
     <body>
+        
+        <nav>
+            <ul>
+                <li class="footer"><a href="/Instagrim">Home</a></li>
+                 <li><a href="register.jsp">Register</a></li>
+                <li><a href="login.jsp">Login</a></li>
+                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+            </ul>
+        </nav>
         <header>
         <h1>InstaGrim ! </h1>
         <h2>Your world in Black and White</h2>
         </header>
-        <nav>
-            <ul>
-                
-                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
-            </ul>
-        </nav>
        
         <article>
             <h3>Login</h3>
             <form method="POST"  action="Login">
-                <ul>
-                    <li>User Name <input type="text" name="username"></li>
-                    <li>Password <input type="password" name="password"></li>
-                </ul>
+
+                User Name <input type="text" name="username"> <br>
+                Password <input type="password" name="password">
+
                 <br/>
                 <input type="submit" value="Login"> 
             </form>
 
         </article>
         <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-            </ul>
         </footer>
     </body>
 </html>

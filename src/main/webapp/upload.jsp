@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,15 +14,38 @@
         <link rel="stylesheet" type="text/css" href="Styles.css" />
     </head>
     <body>
+       <header>
+            <% 
+                LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+            %>
+            <ul>
+
+                <li class="footer"><a href="/Instagrim">Home</a></li>
+               
+                    <%
+                        
+                        
+                        if (lg != null) {
+                            String UserName = lg.getUsername();
+                            if (lg.getlogedin()) {
+                    %>
+                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
+                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li> 
+                <li><a href="/Instagrim/upload.jsp">Upload</a></li>
+                <%}
+                            }else{
+                                %>
+                 <li><a href="register.jsp">Register</a></li>
+                <li><a href="login.jsp">Login</a></li>
+                <%
+                                        
+                            
+                    }%>
+                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+            </ul>
+       </header>
         <h1>InstaGrim ! </h1>
         <h2>Your world in Black and White</h2>
-        <nav>
-            <ul>
-                <li class="nav"><a href="upload.jsp">Upload</a></li>
-                <li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li>
-            </ul>
-        </nav>
- 
         <article>
             <h3>File Upload</h3>
             <form method="POST" enctype="multipart/form-data" action="Image">
@@ -33,9 +57,12 @@
 
         </article>
         <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-            </ul>
+                
+                &COPY; Andy C
+
+                <form class = "logout" method="POST"  action="Logout">
+                <input type="submit" value="Logout"> 
+                </form> 
         </footer>
     </body>
 </html>

@@ -14,9 +14,12 @@ import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashSet;
+import java.util.Set;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.ProfilePage;
+import java.util.UUID;
 
 /**
  *
@@ -28,7 +31,7 @@ public class User {
         
     }
     
-    public boolean RegisterUser(String first_name, String last_name, String username, String Password){
+    public boolean RegisterUser(String first_name, String last_name, String username, String Password, String emailAddress){
         AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;
         try {
@@ -38,12 +41,14 @@ public class User {
             return false;
         }
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("insert into userprofiles (first_name,last_name,login,password) Values(?,?,?,?)");
+        Set<String> email = new HashSet<>();
+        email.add(emailAddress);
+        PreparedStatement ps = session.prepare("insert into userprofiles (first_name,last_name,login,password,email) Values(?,?,?,?,?)");
        
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        first_name, last_name, username,EncodedPassword));
+                        first_name, last_name, username,EncodedPassword,email));
         //We are assuming this always works.  Also a transaction would be good here !
         
         return true;
@@ -84,7 +89,7 @@ public class User {
      public ProfilePage getUserInfo(String user)
      {
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("select login,first_name,last_name from userprofiles where login  =?");
+        PreparedStatement ps = session.prepare("select login,first_name,last_name, email from userprofiles where login  =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         rs = session.execute( // this is where the query is executed
@@ -105,11 +110,13 @@ public class User {
                 profile = new ProfilePage();
                 String username = row.getString("login");
                 String firstname = row.getString("first_name");
-                String lastname = row.getString("last_name");    
+                String lastname = row.getString("last_name");
+                Set<String> email = row.getSet("email", String.class);
                 
                 profile.setUsername(username);
                 profile.setFirstname(firstname);
                 profile.setLastname(lastname);
+                profile.setEmail(email);
             }
         }
         
