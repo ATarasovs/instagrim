@@ -16,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
+import uk.ac.dundee.computing.aec.instagrim.stores.ProfilePage;
 
 /**
  *
@@ -79,6 +80,44 @@ public class User {
     
     return false;  
     }
+    
+     public ProfilePage getUserInfo(String user)
+     {
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("select login,first_name,last_name from userprofiles where login  =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        user));
+        session.close();
+        
+        ProfilePage profile = null;
+        
+        if (rs.isExhausted())
+        {
+            System.out.println("No profiles returned");
+            return null;
+        } 
+        else {
+            for (Row row : rs)
+            {
+                profile = new ProfilePage();
+                String username = row.getString("login");
+                String firstname = row.getString("first_name");
+                String lastname = row.getString("last_name");    
+                
+                profile.setUsername(username);
+                profile.setFirstname(firstname);
+                profile.setLastname(lastname);
+            }
+        }
+        
+           
+        return profile;
+     }
+    
+     
        public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }

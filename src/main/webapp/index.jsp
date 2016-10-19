@@ -50,7 +50,7 @@
                             String UserName = lg.getUsername();
                             if (lg.getlogedin()) {
                     %>
-
+                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Your Profile</a></li>
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li> 
                 <%}
                             }else{
@@ -63,6 +63,7 @@
                     }%>
             </ul>
         </nav>
+        
         <footer>
             <ul>
                 <li class="footer"><a href="/Instagrim">Home</a></li>
