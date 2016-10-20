@@ -57,7 +57,6 @@ public class Image extends HttpServlet {
         CommandsMap.put("Image", 1);
         CommandsMap.put("Images", 2);
         CommandsMap.put("Thumb", 3);
-
     }
 
     public void init(ServletConfig config) throws ServletException {
@@ -69,6 +68,7 @@ public class Image extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      * response)
      */
+   
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         String args[] = Convertors.SplitRequestPath(request);
@@ -91,6 +91,7 @@ public class Image extends HttpServlet {
                 break;
             default:
                 error("Bad Operator", response);
+                
         }
     }
 
@@ -125,6 +126,7 @@ public class Image extends HttpServlet {
         out.close();
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         for (Part part : request.getParts()) {
             System.out.println("Part Name " + part.getName());

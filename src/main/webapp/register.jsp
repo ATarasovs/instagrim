@@ -17,8 +17,8 @@
             <ul>
 
                 <li class="footer"><a href="/Instagrim">Home</a></li>
-                 <li><a href="register.jsp">Register</a></li>
-                <li><a href="login.jsp">Login</a></li>
+                 <li><a href="/Instagrim/Register">Register</a></li>
+                 <li><a href="/Instagrim/Login">Login</a></li>
                 <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
                 
                
@@ -33,15 +33,23 @@
        
         <article>
             <h3>Register as user</h3>
+            
             <form method="POST"  action="Register">
-                First Name <input type="text" name="first_name"><br>
-                    Last Name <input type="text" name="last_name"><br>
-                    User Name <input type="text" name="username"><br>
-                    Email <input type="email" name="emailAddress"><br>
-                    Password <input type="password" name="password"><br>
-                    
-                <br/>
+                <div class="field">
+                <label for="f">First name</label>
+                <input type="text" name="first_name" id="f"><br>
+                <label for="l">Last Name</label>
+                <input type="text" name="last_name" id="l"><br>
+                <label for="u">User Name</label>
+                <input type="text" name="username" id="u"><br>
+                <label for="e">Email</label>
+                <input type="email" name="emailAddress" id="e"><br>
+                <label for="p">Password</label>
+                <input type="password" name="password" id="p"><br>
                 <input type="submit" value="Register"> 
+                
+                </div>
+                   
             </form>
 
         </article>

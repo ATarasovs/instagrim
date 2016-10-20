@@ -53,18 +53,20 @@ public class Profile extends HttpServlet {
 	rd.forward(request,response);
     }
     
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException 
     {
         String args [] = Convertors.SplitRequestPath(request);
         User us = new User();
         us.setCluster(cluster);
-        ProfilePage profile = us.getUserInfo(args[2]);
+        ProfilePage profile = us.getUserProfile(args[2]);
         request.setAttribute("ProfilePage",profile);
         RequestDispatcher rd=request.getRequestDispatcher("/Profile.jsp");
 	rd.forward(request,response);
     }
     
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         for (Part part : request.getParts()) {
             System.out.println("Part Name " + part.getName());
@@ -104,6 +106,7 @@ public class Profile extends HttpServlet {
      *
      * @return a String containing servlet description
      */
+    @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>

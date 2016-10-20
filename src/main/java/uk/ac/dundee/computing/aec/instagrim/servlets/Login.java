@@ -25,7 +25,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
  *
  * @author Administrator
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login","/Login/*"})
+@WebServlet(name = "Login", urlPatterns = {"/Login/*"}) 
 public class Login extends HttpServlet {
 
     Cluster cluster=null;
@@ -41,7 +41,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-        RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
+        RequestDispatcher rd=request.getRequestDispatcher("/login.jsp");
 	rd.forward(request,response);
     }
     

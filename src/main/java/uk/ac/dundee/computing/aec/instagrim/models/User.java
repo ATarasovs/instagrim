@@ -20,6 +20,7 @@ import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.ProfilePage;
 import java.util.UUID;
+import java.util.LinkedList;
 
 /**
  *
@@ -86,10 +87,10 @@ public class User {
     return false;  
     }
     
-     public ProfilePage getUserInfo(String user)
+     public ProfilePage getUserProfile(String user)
      {
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("select login,first_name,last_name, email from userprofiles where login  =?");
+       PreparedStatement ps = session.prepare("select login, first_name, last_name, email from userprofiles where login = ?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         rs = session.execute( // this is where the query is executed
@@ -113,18 +114,49 @@ public class User {
                 String lastname = row.getString("last_name");
                 Set<String> email = row.getSet("email", String.class);
                 
+                
                 profile.setUsername(username);
                 profile.setFirstname(firstname);
                 profile.setLastname(lastname);
                 profile.setEmail(email);
+                
             }
         }
         
            
         return profile;
      }
-    
      
+     public LinkedList<ProfilePage> userProfiles()
+     {
+         LinkedList<ProfilePage> profilePages = new LinkedList<>();
+         Session session = cluster.connect("instagrim");
+         ResultSet rs = null;
+         rs = session.execute ("select login, first_name, last_name from userprofiles");
+         if (rs.isExhausted())
+         {
+             return null;
+         }
+         
+         else
+         {
+             for (Row row : rs)
+            {
+                ProfilePage profile = new ProfilePage();
+                String username = row.getString("login");
+                String firstname = row.getString("first_name");
+                String lastname = row.getString("last_name");
+                
+                profile.setUsername(username);
+                profile.setFirstname(firstname);
+                profile.setLastname(lastname);
+                
+                profilePages.add(profile);
+            }
+         }
+         return profilePages;
+     }
+
        public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }

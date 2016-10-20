@@ -31,17 +31,25 @@
                     %>
                 <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li> 
-                <li><a href="/Instagrim/upload.jsp">Upload</a></li>
+                <li><a href="upload.jsp">Upload</a></li>
                 <%}
                             }else{
                                 %>
-                 <li><a href="register.jsp">Register</a></li>
-                <li><a href="login.jsp">Login</a></li>
+                 <li><a href="/Instagrim/Register">Register</a></li>
+                 <li><a href="/Instagrim/Login">Login</a></li>
                 <%
                                         
                             
                     }%>
                 <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                <%if (lg != null) {
+                   if (lg.getlogedin()) {
+                    %> 
+               <li> <a href="/Instagrim/Logout">Logout</a></li>
+               <%
+                   }
+               }
+               %>
             </ul>
        </header>
         <h1>InstaGrim ! </h1>

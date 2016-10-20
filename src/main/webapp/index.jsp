@@ -38,15 +38,25 @@
                 <%}
                             }else{
                                 %>
-                 <li><a href="/Instagrim/Register/">Register</a></li>
-                 <li><a href="/Instagrim/Login/">Login</a></li>
+                 <li><a href="/Instagrim/Register">Register</a></li>
+                 <li><a href="/Instagrim/Login">Login</a></li>
+                 
                 
                 <%
                                         
                             
                     }%>
-                
+               
                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+               <li><a href="/Instagrim/Profiles">Profile pages</a></li>
+               <%if (lg != null) {
+                   if (lg.getlogedin()) {
+                    %> 
+               <li> <a href="/Instagrim/Logout">Logout</a></li>
+               <%
+                   }
+               }
+               %>
             </ul>
             
          
@@ -63,9 +73,9 @@
                     String UserName = lg.getUsername();
                     if (lg.getlogedin()) {
                 %>
-                <form class = "logout" method="POST"  action="Logout">
+                <%-- <form class = "logout" method="POST"  action="Logout">
                 <input type="submit" value="Logout"> 
-            </form> 
+            </form> --%>
                 <%} } %>
         </footer>
     </body>

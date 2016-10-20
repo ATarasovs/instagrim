@@ -1,20 +1,18 @@
 <%-- 
-    Document   : index
-    Created on : Sep 28, 2014, 7:01:44 PM
-    Author     : Administrator
+    Document   : Profiles
+    Created on : Oct 20, 2016, 4:01:19 PM
+    Author     : Aleksandr
 --%>
 
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.LinkedList"%>
 <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-            form {text-align:right;}
-        </style>
         <title>Instagrim</title>
-        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
+        <link rel="stylesheet" type="text/css" href="Styles.css" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
@@ -56,35 +54,43 @@
                %>
             </ul>
        </header>
-            
-        
-            
-            
-            <h1>InstaGrim ! </h1>
-            <h2>Your world in Black and White</h2>
-            <% ProfilePage profilePage = (ProfilePage) request.getAttribute("ProfilePage");%>
-            <h2><%=profilePage.getUsername() %>'s profile</h2>
-            <br><br>
-            <table>
-                <tr>
-                    <td width = "200">
-                        <img height="120" width="120" src="http://simpleicon.com/wp-content/uploads/account.png">
+       <div class="demo">
+       
+       <%
+           LinkedList<ProfilePage> profilePages = (LinkedList<ProfilePage>) request.getAttribute("ProfilePages");
+           if (profilePages == null) { %>
+                <p>Null</p>
+           <%}
+           else{
+                Iterator<ProfilePage> iterator;
+                iterator = profilePages.iterator();%>
+                
+                <table>
+                    <%while (iterator.hasNext()){
+                    ProfilePage profilePage = (ProfilePage) iterator.next();
+                    %>
+                    <tr>
+                        <td width = "200">
+                        <a href="/Instagrim/Images/<%=profilePage.getUsername()%>">
+                        <img height="130" width="130" src="http://simpleicon.com/wp-content/uploads/account.png">
+                        </a>
+                        </td>
+                        <td>
+                            
+                                <td>
+                        <h3><%=profilePage.getUsername() %></h3>
+                        Name: <%=profilePage.getFirstname() %><br>
+                        Surname: <%=profilePage.getLastname() %>
+                        
                     </td>
-                    <td>
-                        <h3>Name: <%=profilePage.getFirstname() %></h3>
-                        <h3>Surname: <%=profilePage.getLastname() %></h3>
-                        <h3>Email: <%=profilePage.getEmail() %></h3>
-                    </td>
-                <tr>
-            </table>
-
-             
-           
+                            </tr>
+                    <%}%>
                     
-                    
-               
-        <footer>
-            &COPY; Andy C
+                </table>
+           <%}%>
+       </div>
+           <footer>
+          &COPY; Andy C
                 <%if (lg != null) {
                     String UserName = lg.getUsername();
                     if (lg.getlogedin()) {

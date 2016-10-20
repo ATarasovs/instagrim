@@ -18,8 +18,8 @@
         <nav>
             <ul>
                 <li class="footer"><a href="/Instagrim">Home</a></li>
-                 <li><a href="register.jsp">Register</a></li>
-                <li><a href="login.jsp">Login</a></li>
+                 <li><a href="/Instagrim/Register">Register</a></li>
+                 <li><a href="/Instagrim/Login">Login</a></li>
                 <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
             </ul>
         </nav>
@@ -31,12 +31,14 @@
         <article>
             <h3>Login</h3>
             <form method="POST"  action="Login">
-
-                User Name <input type="text" name="username"> <br>
-                Password <input type="password" name="password">
-
-                <br/>
+                <div class="field">
+                <label for="u">User Name</label>
+                <input type="text" name="username"> <br>
+                <label for="p">Password</label>
+                <input type="password" name="password"><br>
                 <input type="submit" value="Login"> 
+                </div>
+                
             </form>
 
         </article>
