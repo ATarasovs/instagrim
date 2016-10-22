@@ -34,8 +34,9 @@ import javax.imageio.ImageIO;
 import static org.imgscalr.Scalr.*;
 import org.imgscalr.Scalr.Method;
 
+
 import uk.ac.dundee.computing.aec.instagrim.lib.*;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
+import uk.ac.dundee.computing.aec.instagrim.stores.*;
 //import uk.ac.dundee.computing.aec.stores.TweetStore;
 
 public class PicModel {
@@ -50,7 +51,7 @@ public class PicModel {
         this.cluster = cluster;
     }
 
-    public void insertPic(byte[] b, String type, String name, String user) {
+    public void insertPic(byte[] b, String type, String name, String user, boolean isProfile) {
         try {
             Convertors convertor = new Convertors();
 
@@ -80,8 +81,15 @@ public class PicModel {
             Date DateAdded = new Date();
             session.execute(bsInsertPic.bind(picid, buffer, thumbbuf,processedbuf, user, DateAdded, length,thumblength,processedlength, type, name));
             session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
+            //  session.close();
+            
+            if (isProfile)
+            {
+                PreparedStatement psInsertProfilePic = session.prepare("update userprofiles set profile_pic = ? where login = ?");
+                BoundStatement bsInsertProfilePic = new BoundStatement(psInsertProfilePic);
+                session.execute(bsInsertProfilePic.bind(picid, user));
+            }
             session.close();
-
         } catch (IOException ex) {
             System.out.println("Error --> " + ex);
         }
@@ -121,14 +129,14 @@ public class PicModel {
     }
 
     public static BufferedImage createThumbnail(BufferedImage img) {
-        img = resize(img, Method.SPEED, 250, OP_ANTIALIAS, OP_GRAYSCALE);
+        img = resize(img, Method.SPEED, 250, OP_ANTIALIAS); //OP_GRAYSCALE
         // Let's add a little border before we return result.
         return pad(img, 2);
     }
     
    public static BufferedImage createProcessed(BufferedImage img) {
         int Width=img.getWidth()-1;
-        img = resize(img, Method.SPEED, Width, OP_ANTIALIAS, OP_GRAYSCALE);
+        img = resize(img, Method.SPEED, Width, OP_ANTIALIAS); //OP_GRAYSCALE
         return pad(img, 4);
     }
    

@@ -89,7 +89,7 @@ public class Profile extends HttpServlet {
                 System.out.println("Length : " + b.length);
                 PicModel tm = new PicModel();
                 tm.setCluster(cluster);
-                tm.insertPic(b, type, filename, username);
+                tm.insertPic(b, type, filename, username, true);
 
                 is.close();
             }

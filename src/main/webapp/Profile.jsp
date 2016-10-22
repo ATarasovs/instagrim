@@ -68,7 +68,13 @@
             <table>
                 <tr>
                     <td width = "200">
+                    <%if (profilePage.getUserPicture() == null) {%>
                         <img height="120" width="120" src="http://simpleicon.com/wp-content/uploads/account.png">
+                    
+                    <%}
+                    else { %>
+                        <img src="/Instagrim/Thumb/<%=profilePage.getUserPicture()%>">
+                      <% } %>
                     </td>
                     <td>
                         <h3>Name: <%=profilePage.getFirstname() %></h3>
@@ -78,6 +84,16 @@
                 <tr>
             </table>
 
+            <article>
+            <h3>File Upload</h3>
+            <form method="POST" enctype="multipart/form-data" action="Profile">
+                File to upload: <input type="file" name="upfile"><br/>
+
+                <br/>
+                <input type="submit" value="Press"> to upload the file!
+            </form>
+
+        </article>
              
            
                     

@@ -90,7 +90,7 @@ public class User {
      public ProfilePage getUserProfile(String user)
      {
         Session session = cluster.connect("instagrim");
-       PreparedStatement ps = session.prepare("select login, first_name, last_name, email from userprofiles where login = ?");
+       PreparedStatement ps = session.prepare("select login, first_name, last_name, email, profile_pic from userprofiles where login = ?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         rs = session.execute( // this is where the query is executed
@@ -113,12 +113,14 @@ public class User {
                 String firstname = row.getString("first_name");
                 String lastname = row.getString("last_name");
                 Set<String> email = row.getSet("email", String.class);
+                UUID profilePicture = row.getUUID("profile_pic");
                 
                 
                 profile.setUsername(username);
                 profile.setFirstname(firstname);
                 profile.setLastname(lastname);
                 profile.setEmail(email);
+                profile.setUserPicture(profilePicture);
                 
             }
         }
@@ -132,7 +134,7 @@ public class User {
          LinkedList<ProfilePage> profilePages = new LinkedList<>();
          Session session = cluster.connect("instagrim");
          ResultSet rs = null;
-         rs = session.execute ("select login, first_name, last_name from userprofiles");
+         rs = session.execute ("select login, first_name, last_name, profile_pic from userprofiles");
          if (rs.isExhausted())
          {
              return null;
@@ -146,10 +148,12 @@ public class User {
                 String username = row.getString("login");
                 String firstname = row.getString("first_name");
                 String lastname = row.getString("last_name");
+                UUID profilePicture = row.getUUID("profile_pic");
                 
                 profile.setUsername(username);
                 profile.setFirstname(firstname);
                 profile.setLastname(lastname);
+                profile.setUserPicture(profilePicture);
                 
                 profilePages.add(profile);
             }

@@ -17,7 +17,7 @@ public class ProfilePage {
     String firstname = null;
     String lastname = null;
     Set<String> email = null;
-    UUID profilePic = null;
+    UUID profilePicture = null;
 
 public void ProfilePage()
 {
@@ -63,6 +63,16 @@ public void setEmail(Set<String> email)
 public Set<String> getEmail()
 {
     return email;
+}
+
+public void setUserPicture(UUID profilePicture)
+{
+    this.profilePicture = profilePicture;
+}
+
+public UUID getUserPicture()
+{
+    return profilePicture;
 }
 
 

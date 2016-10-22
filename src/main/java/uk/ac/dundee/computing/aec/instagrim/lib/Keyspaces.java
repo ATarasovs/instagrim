@@ -41,7 +41,7 @@ public final class Keyspaces {
                     + "      city text,\n"
                     + "      zip int\n"
                     + "  );";
-            String CreateUserProfile = "CREATE TABLE if not exists instagrim.userprofiles (\n"
+            String CreateUserProfiles = "CREATE TABLE if not exists instagrim.userprofiles (\n"
                     + "      login text PRIMARY KEY,\n"
                      + "     password text,\n"
                     + "      first_name text,\n"
@@ -50,6 +50,7 @@ public final class Keyspaces {
                     + "      profile_pic uuid,\n"
                     + "      addresses  map<text, frozen <address>>\n"
                     + "  );";
+
             Session session = c.connect();
             try {
                 PreparedStatement statement = session
@@ -87,9 +88,9 @@ public final class Keyspaces {
             } catch (Exception et) {
                 System.out.println("Can't create Address type " + et);
             }
-            System.out.println("" + CreateUserProfile);
+            System.out.println("" + CreateUserProfiles);
             try {
-                SimpleStatement cqlQuery = new SimpleStatement(CreateUserProfile);
+                SimpleStatement cqlQuery = new SimpleStatement(CreateUserProfiles);
                 session.execute(cqlQuery);
             } catch (Exception et) {
                 System.out.println("Can't create Address Profile " + et);
