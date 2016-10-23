@@ -1,7 +1,7 @@
 <%-- 
     Document   : upload
     Created on : Sep 22, 2014, 6:31:50 PM
-    Author     : Administrator
+    Author     : Aleksandrs Tarasovs
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -42,20 +42,22 @@
                             
                     }%>
                 <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                <li><a href="/Instagrim/Profiles">Profile pages</a></li>
                 <%if (lg != null) {
                    if (lg.getlogedin()) {
                     %> 
                <li> <a href="/Instagrim/Logout">Logout</a></li>
+               
                <%
                    }
                }
                %>
+               <li class="instagrim">InstaGrim</li>
             </ul>
        </header>
-        <h1>InstaGrim ! </h1>
-        <h2>Your world in Black and White</h2>
+               <div class="img">
         <article>
-            <h3>File Upload</h3>
+            <h2>Upload photos to your image gallery</h2>
             <form method="POST" enctype="multipart/form-data" action="Image">
                 File to upload: <input type="file" name="upfile"><br/>
 
@@ -64,13 +66,10 @@
             </form>
 
         </article>
+               </div>
         <footer>
                 
-                &COPY; Andy C
-
-                <form class = "logout" method="POST"  action="Logout">
-                <input type="submit" value="Logout"> 
-                </form> 
+                &COPY; Aleksandrs Tarasovs
         </footer>
     </body>
 </html>

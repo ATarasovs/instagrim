@@ -1,7 +1,7 @@
 <%-- 
     Document   : Profiles
     Created on : Oct 20, 2016, 4:01:19 PM
-    Author     : Aleksandr
+    Author     : Aleksandrs Tarasovs
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -44,6 +44,7 @@
                             
                     }%>
                 <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                <li><a href="/Instagrim/Profiles">Profile pages</a></li>
                 <%if (lg != null) {
                    if (lg.getlogedin()) {
                     %> 
@@ -52,9 +53,13 @@
                    }
                }
                %>
+               <li class="instagrim">InstaGrim</li>
             </ul>
        </header>
        <div class="demo">
+           <div class="img">
+               <h2>Profiles</h2>
+               <h3>Click on profile picture to see photos</h3>
        
        <%
            LinkedList<ProfilePage> profilePages = (LinkedList<ProfilePage>) request.getAttribute("ProfilePages");
@@ -64,41 +69,65 @@
            else{
                 Iterator<ProfilePage> iterator;
                 iterator = profilePages.iterator();%>
-                
+                <br>
+                <br>
                 <table>
                     <%while (iterator.hasNext()){
                     ProfilePage profilePage = (ProfilePage) iterator.next();
                     %>
                     <tr>
-                        <td width = "200">
+                        <td width = "200" class = "profiles">
                         <a href="/Instagrim/Images/<%=profilePage.getUsername()%>">
+                        <%if (profilePage.getUserPicture() == null) {%>
                         <img height="130" width="130" src="http://simpleicon.com/wp-content/uploads/account.png">
+                    
+                        <%}
+                        else { %>
+                        
+                        <img height="130" width="130" src="/Instagrim/Thumb/<%=profilePage.getUserPicture()%>">
+                      <% } %>
                         </a>
                         </td>
                         <td>
                             
-                                <td>
-                        <h3><%=profilePage.getUsername() %></h3>
-                        Name: <%=profilePage.getFirstname() %><br>
-                        Surname: <%=profilePage.getLastname() %>
+                                <td width ="500">
+                        <h3> <%=profilePage.getFirstname()%> <%=profilePage.getLastname() %> </h3>
                         
                     </td>
+                    <%  
+                             if (iterator.hasNext()){
+                                    
+                                    
+                            profilePage = (ProfilePage) iterator.next();
+                            %>
+                    <td width = "200">
+                        
+                        <a href="/Instagrim/Images/<%=profilePage.getUsername()%>">
+                        <%
+                            if (profilePage.getUserPicture() == null) {%>
+                        <img height="130" width="130" src="http://simpleicon.com/wp-content/uploads/account.png">
+                    
+                        <%}
+                        else { %>
+                        
+                        <img height="130" width="130" src="/Instagrim/Thumb/<%=profilePage.getUserPicture()%>">
+                      <% } %>
+                        </a>
+                    </td>
+                    <td>
+                        <h3> <%=profilePage.getFirstname()%> <%=profilePage.getLastname() %> </h3>
+                        
+                    </td>
+                    <%}%>
                             </tr>
                     <%}%>
                     
                 </table>
            <%}%>
        </div>
+       </div>
            <footer>
-          &COPY; Andy C
-                <%if (lg != null) {
-                    String UserName = lg.getUsername();
-                    if (lg.getlogedin()) {
-                %>
-                <form class = "logout" method="POST"  action="Logout">
-                <input type="submit" value="Logout"> 
-            </form> 
-                <%} } %>
+          &COPY; Aleksandrs Tarasovs
         </footer>
     </body>
 </html>

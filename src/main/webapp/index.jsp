@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : Sep 28, 2014, 7:01:44 PM
-    Author     : Administrator
+    Author     : Aleksandrs Tarasovs
 --%>
 
 
@@ -24,7 +24,7 @@
             %>
             <ul>
 
-                <li class="footer"><a href="/Instagrim">Home</a></li>
+                <li><a href="/Instagrim">Home</a></li>
                     <%
                         
                         
@@ -57,26 +57,44 @@
                    }
                }
                %>
+               <li class="instagrim">InstaGrim</li>
             </ul>
             
          
               
             
         </header>
+            <%if (lg != null) {
+            String UserName = lg.getUsername();
+                if (lg.getlogedin()) { %>
+            <div class="img">
         
-             <h1>InstaGrim ! </h1>
-            <h2>Your world in Black and White</h2>
+            <h2>Welcome to Instagrim!</h2>
+
+
+
+            
+            </div>
+            
+           
+            <%} } else{ %>
+            <article class="center">
+            <h3>Login</h3>
+            <form method="POST"  action="Login">
+                <div class="field">
+                <label for="u">User Name</label>
+                <input type="text" name="username" required> <br>
+                <label for="p">Password</label>
+                <input type="password" name="password" required><br>
+                <input type="submit" value="Login"> 
+                </div>
+            </form>
+            </article>
+            <% } %>
         <footer>
 
-                &COPY; Andy C
-                <%if (lg != null) {
-                    String UserName = lg.getUsername();
-                    if (lg.getlogedin()) {
-                %>
-                <%-- <form class = "logout" method="POST"  action="Logout">
-                <input type="submit" value="Logout"> 
-            </form> --%>
-                <%} } %>
+                &COPY; Aleksandrs Tarasovs
+                
         </footer>
     </body>
 </html>

@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : Sep 28, 2014, 7:01:44 PM
-    Author     : Administrator
+    Author     : Aleksandrs Tarasovs
 --%>
 
 
@@ -23,29 +23,19 @@
                 LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
             %>
             <ul>
-
                 <li class="footer"><a href="/Instagrim">Home</a></li>
-                
-                    <%
-                        
-                        
-                        if (lg != null) {
-                            String UserName = lg.getUsername();
-                            if (lg.getlogedin()) {
-                    %>
-                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li> 
-                <li><li><a href="/Instagrim/upload.jsp">Upload</a></li>
-                <%}
-                            }else{
-                                %>
-                 <li><a href="/Instagrim/Register">Register</a></li>
-                 <li><a href="/Instagrim/Login">Login</a></li>
-                <%
-                                        
-                            
-                    }%>
-                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                <%if (lg != null) {
+                    String UserName = lg.getUsername();
+                    if (lg.getlogedin()) { %>
+                        <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
+                        <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Images</a></li> 
+                        <li><a href="/Instagrim/upload.jsp">Upload</a></li>
+                    <%} }else{ %>
+                        <li><a href="/Instagrim/Register">Register</a></li>
+                        <li><a href="/Instagrim/Login">Login</a></li>
+                    <% }%>
+                    <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+                    <li><a href="/Instagrim/Profiles">Profile pages</a></li>
                 <%if (lg != null) {
                    if (lg.getlogedin()) {
                     %> 
@@ -54,26 +44,26 @@
                    }
                }
                %>
+               <li class="instagrim">InstaGrim</li>
             </ul>
        </header>
-            
-        
-            
-            
-            <h1>InstaGrim ! </h1>
-            <h2>Your world in Black and White</h2>
+               <div class="img">
             <% ProfilePage profilePage = (ProfilePage) request.getAttribute("ProfilePage");%>
-            <h2><%=profilePage.getUsername() %>'s profile</h2>
-            <br><br>
+            <h2>My profile</h2>
+            <br>
             <table>
                 <tr>
-                    <td width = "200">
+                    <td width = "300">
                     <%if (profilePage.getUserPicture() == null) {%>
-                        <img height="120" width="120" src="http://simpleicon.com/wp-content/uploads/account.png">
+                    <a href="http://simpleicon.com/wp-content/uploads/account.png">
+                        <img height="200" width="200" src="http://simpleicon.com/wp-content/uploads/account.png">
+                    </a>
                     
                     <%}
                     else { %>
-                        <img src="/Instagrim/Thumb/<%=profilePage.getUserPicture()%>">
+                    <a href="/Instagrim/Image/<%=profilePage.getUserPicture()%>">
+                        <img height="200" width="200" src="/Instagrim/Thumb/<%=profilePage.getUserPicture()%>">
+                    </a>
                       <% } %>
                     </td>
                     <td>
@@ -85,12 +75,15 @@
             </table>
 
             <article>
-            <h3>File Upload</h3>
+            <h3>Upload profile picture</h3>
+            <div class="field">
             <form method="POST" enctype="multipart/form-data" action="Profile">
                 File to upload: <input type="file" name="upfile"><br/>
-
+                <div class="press">
                 <br/>
                 <input type="submit" value="Press"> to upload the file!
+                            </div>
+
             </form>
 
         </article>
@@ -98,17 +91,11 @@
            
                     
                     
-               
+               </div>      
+            
         <footer>
-            &COPY; Andy C
-                <%if (lg != null) {
-                    String UserName = lg.getUsername();
-                    if (lg.getlogedin()) {
-                %>
-                <form class = "logout" method="POST"  action="Logout">
-                <input type="submit" value="Logout"> 
-            </form> 
-                <%} } %>
+            &COPY; Aleksandrs Tarasovs
+                
         </footer>
     </body>
 </html>

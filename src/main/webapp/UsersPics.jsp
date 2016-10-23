@@ -1,7 +1,7 @@
 <%-- 
     Document   : UsersPics
     Created on : Sep 24, 2014, 2:52:48 PM
-    Author     : Administrator
+    Author     : Aleksandrs Tarasovs
 --%>
 
 <%@page import="java.util.*"%>
@@ -46,6 +46,7 @@
                     }%>
                 
                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
+               <li><a href="/Instagrim/Profiles">Profile pages</a></li>
                <%if (lg != null) {
                    if (lg.getlogedin()) {
                     %> 
@@ -54,6 +55,7 @@
                    }
                }
                %>
+               <li class="instagrim">InstaGrim</li>
             </ul>
             
          
@@ -61,13 +63,13 @@
             
         </header>
         <div class="demo">
-        <h1>InstaGrim ! </h1>
-        <h2>Your world in Black and White</h2>
         
        
- 
+        <div class="img">
         <article>
             <h1>Your Pics</h1>
+            
+            
         <%
             java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
             if (lsPics == null) {
@@ -81,24 +83,23 @@
                 Pic p = (Pic) iterator.next();
 
         %>
-        <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/><%
+        
+        <a href="/Instagrim/Image/<%=p.getSUUID()%>" ><img height="200" width="200" src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><%
+
+
+   
+                
+
 
             }
             }
         %>
+       
         </article>
-
+        </div>
         </div>
         <footer>
-            &COPY; Andy C
-                <%if (lg != null) {
-                    String UserName = lg.getUsername();
-                    if (lg.getlogedin()) {
-                %>
-                <form class = "logout" method="POST"  action="Logout">
-                <input type="submit" value="Logout"> 
-            </form> 
-                <%} } %>
+            &COPY; Aleksandrs Tarasovs
         </footer>
     </body>
 </html>

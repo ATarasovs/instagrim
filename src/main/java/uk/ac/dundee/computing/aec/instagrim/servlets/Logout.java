@@ -23,7 +23,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 
 /**
  *
- * @author Administrator
+ * @author Aleksandr
  */
 @WebServlet(name = "Logout", urlPatterns = {"/Logout","/Logout/*"})
 public class Logout extends HttpServlet 

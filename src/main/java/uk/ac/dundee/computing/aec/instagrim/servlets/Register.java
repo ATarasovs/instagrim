@@ -24,7 +24,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.ProfilePage;
 
 /**
  *
- * @author Administrator
+ * @author Aleksandr
  */
 @WebServlet(name = "Register", urlPatterns = {"/Register","/Register/*"})
 
@@ -40,6 +40,7 @@ public class Register extends HttpServlet {
     {
         RequestDispatcher rd=request.getRequestDispatcher("register.jsp");
 	rd.forward(request,response);
+        
     }
     
     /**
@@ -63,9 +64,17 @@ public class Register extends HttpServlet {
         
         User us=new User();
         us.setCluster(cluster);
+        
+        if (us.doesUserExist(username)==true)
+        {
+            response.sendRedirect("registerError.jsp");      
+        }  
+        else
+        {
         us.RegisterUser(first_name, last_name, username, password, emailAddress);
         
-	response.sendRedirect("/Instagrim");
+	response.sendRedirect("/Instagrim/Login");
+        }
         
     }
 
